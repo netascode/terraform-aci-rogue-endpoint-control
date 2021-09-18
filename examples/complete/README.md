@@ -1,5 +1,5 @@
 <!-- BEGIN_TF_DOCS -->
-# Scaffolding Example
+# Rogue Endpoint Control Example
 
 To run this example you need to execute:
 
@@ -12,13 +12,14 @@ $ terraform apply
 Note that this example will create resources. Resources can be destroyed with `terraform destroy`.
 
 ```hcl
-module "aci_scaffolding" {
-  source  = "netascode/scaffolding/aci"
+module "aci_rogue_endpoint_control" {
+  source  = "netascode/rogue-endpoint-control/aci"
   version = ">= 0.0.1"
 
-  name        = "ABC"
-  alias       = "ABC-ALIAS"
-  description = "My Description"
+  admin_state          = true
+  hold_interval        = 2000
+  detection_interval   = 120
+  detection_multiplier = 10
 }
 
 ```

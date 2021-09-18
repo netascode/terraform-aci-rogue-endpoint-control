@@ -14,33 +14,21 @@ terraform {
 module "main" {
   source = "../.."
 
-  name = "ABC"
+  admin_state = true
 }
 
-data "aci_rest" "fvTenant" {
-  dn = "uni/tn-ABC"
+data "aci_rest" "epControlP" {
+  dn = "uni/infra/epCtrlP-default"
 
   depends_on = [module.main]
 }
 
-resource "test_assertions" "fvTenant" {
-  component = "fvTenant"
+resource "test_assertions" "epControlP" {
+  component = "epControlP"
 
-  equal "name" {
-    description = "name"
-    got         = data.aci_rest.fvTenant.content.name
-    want        = "ABC"
-  }
-
-  equal "nameAlias" {
-    description = "nameAlias"
-    got         = data.aci_rest.fvTenant.content.nameAlias
-    want        = ""
-  }
-
-  equal "descr" {
-    description = "descr"
-    got         = data.aci_rest.fvTenant.content.descr
-    want        = ""
+  equal "adminSt" {
+    description = "adminSt"
+    got         = data.aci_rest.epControlP.content.adminSt
+    want        = "enabled"
   }
 }

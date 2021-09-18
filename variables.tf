@@ -1,31 +1,38 @@
-variable "name" {
-  description = "Tenant name."
-  type        = string
+variable "admin_state" {
+  description = "Admin state."
+  type        = bool
+  default     = false
+}
+
+variable "hold_interval" {
+  description = "Hold interval. Allowed values: 300-3600."
+  type        = number
+  default     = 1800
 
   validation {
-    condition     = can(regex("^[a-zA-Z0-9_.-]{0,64}$", var.name))
-    error_message = "Allowed characters: `a`-`z`, `A`-`Z`, `0`-`9`, `_`, `.`, `-`. Maximum characters: 64."
+    condition     = var.hold_interval >= 300 && var.hold_interval <= 3600
+    error_message = "Minimum value: 300. Maximum value: 3600."
   }
 }
 
-variable "alias" {
-  description = "Tenant alias."
-  type        = string
-  default     = ""
+variable "detection_interval" {
+  description = "Detection interval. Allowed values: 30-3600."
+  type        = number
+  default     = 60
 
   validation {
-    condition     = can(regex("^[a-zA-Z0-9_.-]{0,64}$", var.alias))
-    error_message = "Allowed characters: `a`-`z`, `A`-`Z`, `0`-`9`, `_`, `.`, `-`. Maximum characters: 64."
+    condition     = var.detection_interval >= 30 && var.detection_interval <= 3600
+    error_message = "Minimum value: 30. Maximum value: 3600."
   }
 }
 
-variable "description" {
-  description = "Tenant description."
-  type        = string
-  default     = ""
+variable "detection_multiplier" {
+  description = "Detection multiplier. Allowed values: 2-65535."
+  type        = number
+  default     = 4
 
   validation {
-    condition     = can(regex("^[a-zA-Z0-9\\!#$%()*,-./:;@ _{|}~?&+]{0,128}$", var.description))
-    error_message = "Allowed characters: `a`-`z`, `A`-`Z`, `0`-`9`, `\\`, `!`, `#`, `$`, `%`, `(`, `)`, `*`, `,`, `-`, `.`, `/`, `:`, `;`, `@`, ` `, `_`, `{`, `|`, }`, `~`, `?`, `&`, `+`. Maximum characters: 128."
+    condition     = var.detection_multiplier >= 2 && var.detection_multiplier <= 65535
+    error_message = "Minimum value: 2. Maximum value: 65535."
   }
 }

@@ -14,35 +14,42 @@ terraform {
 module "main" {
   source = "../.."
 
-  name        = "ABC"
-  alias       = "ALIAS"
-  description = "DESCR"
+  admin_state          = true
+  hold_interval        = 2000
+  detection_interval   = 120
+  detection_multiplier = 10
 }
 
-data "aci_rest" "fvTenant" {
-  dn = "uni/tn-ABC"
+data "aci_rest" "epControlP" {
+  dn = "uni/infra/epCtrlP-default"
 
   depends_on = [module.main]
 }
 
-resource "test_assertions" "fvTenant" {
-  component = "fvTenant"
+resource "test_assertions" "epControlP" {
+  component = "epControlP"
 
-  equal "name" {
-    description = "name"
-    got         = data.aci_rest.fvTenant.content.name
-    want        = "ABC"
+  equal "adminSt" {
+    description = "adminSt"
+    got         = data.aci_rest.epControlP.content.adminSt
+    want        = "enabled"
   }
 
-  equal "nameAlias" {
-    description = "nameAlias"
-    got         = data.aci_rest.fvTenant.content.nameAlias
-    want        = "ALIAS"
+  equal "holdIntvl" {
+    description = "holdIntvl"
+    got         = data.aci_rest.epControlP.content.holdIntvl
+    want        = "2000"
   }
 
-  equal "descr" {
-    description = "descr"
-    got         = data.aci_rest.fvTenant.content.descr
-    want        = "DESCR"
+  equal "rogueEpDetectIntvl" {
+    description = "rogueEpDetectIntvl"
+    got         = data.aci_rest.epControlP.content.rogueEpDetectIntvl
+    want        = "120"
+  }
+
+  equal "rogueEpDetectMult" {
+    description = "rogueEpDetectMult"
+    got         = data.aci_rest.epControlP.content.rogueEpDetectMult
+    want        = "10"
   }
 }

@@ -1,9 +1,10 @@
-resource "aci_rest" "fvTenant" {
-  dn         = "uni/tn-${var.name}"
-  class_name = "fvTenant"
+resource "aci_rest" "epControlP" {
+  dn         = "uni/infra/epCtrlP-default"
+  class_name = "epControlP"
   content = {
-    name      = var.name
-    nameAlias = var.alias
-    descr     = var.description
+    adminSt            = var.admin_state == true ? "enabled" : "disabled"
+    holdIntvl          = var.hold_interval
+    rogueEpDetectIntvl = var.detection_interval
+    rogueEpDetectMult  = var.detection_multiplier
   }
 }
