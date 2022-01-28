@@ -1,4 +1,4 @@
-resource "aci_rest" "epControlP" {
+resource "aci_rest_managed" "epControlP" {
   dn         = "uni/infra/epCtrlP-default"
   class_name = "epControlP"
   content = {

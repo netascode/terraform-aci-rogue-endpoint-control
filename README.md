@@ -13,14 +13,13 @@ Location in GUI:
 ```hcl
 module "aci_rogue_endpoint_control" {
   source  = "netascode/rogue-endpoint-control/aci"
-  version = ">= 0.0.1"
+  version = ">= 0.1.0"
 
   admin_state          = true
   hold_interval        = 2000
   detection_interval   = 120
   detection_multiplier = 10
 }
-
 ```
 
 ## Requirements
@@ -28,13 +27,13 @@ module "aci_rogue_endpoint_control" {
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_aci"></a> [aci](#requirement\_aci) | >= 0.2.0 |
+| <a name="requirement_aci"></a> [aci](#requirement\_aci) | >= 2.0.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aci"></a> [aci](#provider\_aci) | >= 0.2.0 |
+| <a name="provider_aci"></a> [aci](#provider\_aci) | >= 2.0.0 |
 
 ## Inputs
 
@@ -55,5 +54,5 @@ module "aci_rogue_endpoint_control" {
 
 | Name | Type |
 |------|------|
-| [aci_rest.epControlP](https://registry.terraform.io/providers/netascode/aci/latest/docs/resources/rest) | resource |
+| [aci_rest_managed.epControlP](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/rest_managed) | resource |
 <!-- END_TF_DOCS -->
